@@ -9,9 +9,6 @@ public class GameWindow extends JFrame {
         setLocation(400, 200);
         setSize(640, 480);
         setResizable(false);
-        GameField gameField = new GameField();
-        gameField.setBackground(Color.BLACK);
-        add(gameField);
         setVisible(true);
     }
 }
