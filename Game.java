@@ -1,15 +1,16 @@
 import java.awt.*;
 
 public class Game {
-    static GameWindow gameWindow;
-    static Shape figure = new Shape();
+    GameWindow gameWindow;
+    static Snake snake = new Snake(Color.CYAN);
 
-    public static void main(String[] args) {
-        figure.blocks.add(new Block(10, 10, 20, 20, Color.YELLOW));
+    public static void main(String[] args) {new Game().play();}
+
+    private void play() {
         gameWindow = new GameWindow();
     }
 
     public static void Paint(Graphics g) {
-        figure.draw(g);
+        snake.draw(g);
     }
 }

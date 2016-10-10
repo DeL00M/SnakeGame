@@ -5,8 +5,7 @@ public class Shape {
     public ArrayList<Block> blocks = new ArrayList<Block>();;
 
     public void draw(Graphics g) {
-        for (Block b:blocks
-             ) {
+        for (Block b:blocks) {
             b.draw(g);
         }
     }
