@@ -4,10 +4,10 @@ import java.util.ArrayList;
 
 public class GameWindow extends JFrame {
 
-    public GameWindow() {
+    public GameWindow(int width, int height, int top, int left) {
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        setLocation(400, 200);
-        setSize(640, 480);
+        setLocation(top, left);
+        setSize(width, height);
         setResizable(false);
         setVisible(true);
     }
