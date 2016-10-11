@@ -1,20 +1,20 @@
 import java.awt.*;
 
 public class Block {
-    int posX;
-    int posY;
-    int size;
+    public int top;
+    public int left;
+    public int size;
     Color color;
 
-    Block(int x, int y, int size, Color color) {
-        posX = x;
-        posY = y;
+    Block(int top, int left, int size, Color color) {
+        this.top = top;
+        this.left = left;
         this.size = size;
         this.color = color;
     }
 
     public void draw(Graphics g) {
         g.setColor(color);
-        g.fillRect(posX, posY, size, size);
+        g.fillRect(top, left, size, size);
     }
 }

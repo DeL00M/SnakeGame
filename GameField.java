@@ -6,11 +6,11 @@ public class GameField extends JPanel {
     public GameField(int rows, int cols, int size, Color color) {
         setBackground(color);
         cells = new Block[rows][cols];
-        for (int i = 0; i < rows; i++) {
-            for (int j = 0; j < cols; j++) {
-                cells[i][j] = new Block(i*size, j*size, size, color);
-            }
-        }
+//        for (int i = 0; i < rows; i++) {
+//            for (int j = 0; j < cols; j++) {
+//                cells[i][j] = new Block(i*size, j*size, size, color);
+//            }
+//        }
     }
 
     @Override
