@@ -9,6 +9,10 @@ public class Snake extends Line{
     final static int DOWN = 40;
     final static int LEFT = 37;
     final static int RIGHT = 39;
+    final static int W = 87;
+    final static int A = 65;
+    final static int S = 83;
+    final static int D = 68;
     private static int snakeCount = 0;
     private Directions direction;
 
@@ -99,13 +103,13 @@ public class Snake extends Line{
         @Override
         public void keyPressed(KeyEvent e) {
             switch (e.getKeyCode()) {
-                case 57: setDirection(Direction.UP);
+                case W: setDirection(Direction.UP);
                     break;
-                case 53:setDirection(Direction.DOWN);
+                case S:setDirection(Direction.DOWN);
                     break;
-                case 41:setDirection(Direction.LEFT);
+                case A:setDirection(Direction.LEFT);
                     break;
-                case 44:setDirection(Direction.RIGHT);
+                case D:setDirection(Direction.RIGHT);
                     break;
             }
         }
