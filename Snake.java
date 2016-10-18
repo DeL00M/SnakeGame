@@ -23,7 +23,7 @@ public class Snake extends Line{
     private Snake(int top, int left, int count, Directions direction, Color color) {
         super(top, left, count, direction, color);
         snakeCount++;
-        setController(count);
+        setController(snakeCount);
         setDirection(Direction.RIGHT);
     }
 
@@ -98,7 +98,16 @@ public class Snake extends Line{
 
         @Override
         public void keyPressed(KeyEvent e) {
-
+            switch (e.getKeyCode()) {
+                case 57: setDirection(Direction.UP);
+                    break;
+                case 53:setDirection(Direction.DOWN);
+                    break;
+                case 41:setDirection(Direction.LEFT);
+                    break;
+                case 44:setDirection(Direction.RIGHT);
+                    break;
+            }
         }
 
         @Override

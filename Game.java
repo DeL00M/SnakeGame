@@ -14,6 +14,7 @@ public class Game {
     static final int WINDOW_LEFT = (screen.width / 2) - (WINDOW_WIDTH / 2);
     static int snakeSize = 5;
     static Snake snake;
+    static Snake snake2;
 
 
     public static void main(String[] args) throws InterruptedException {new Game().play();}
@@ -34,12 +35,18 @@ public class Game {
         snake = Snake.createSnake(BLOCK_SIZE*2, BLOCK_SIZE*2, snakeSize,
                 Direction.RIGHT, snakeColor);
 
+        snake2 = Snake.createSnake(BLOCK_SIZE*4, BLOCK_SIZE*4, snakeSize,
+                Direction.RIGHT, snakeColor);
+        gameField.addShape(snake2);
+
         gameField.addShape(snake);
 
         gameWindow.addKeyListener(snake.getController());
+        gameWindow.addKeyListener(snake2.getController());
 
         while (true) {
             snake.move(snake.getDirection());
+            snake2.move(snake2.getDirection());
             Thread.sleep(500);
             gameField.repaint();
         }
