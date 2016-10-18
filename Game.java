@@ -27,8 +27,9 @@ public class Game {
         topLine = new Line(WINDOW_TOP, 0, WINDOW_WIDTH / BLOCK_SIZE, Direction.RIGHT, Color.WHITE);
         bottomLine = new Line(WINDOW_HEIGHT - BLOCK_SIZE, 0,
                 WINDOW_WIDTH / BLOCK_SIZE, Direction.RIGHT, Color.WHITE);
-        leftLine = new Line(WINDOW_TOP + BLOCK_SIZE, 0, WINDOW_HEIGHT / BLOCK_SIZE -BLOCK_SIZE - 28,
+        leftLine = new Line(WINDOW_TOP + BLOCK_SIZE, 0, (WINDOW_HEIGHT / BLOCK_SIZE) -1,
                 Direction.DOWN, Color.WHITE);
+
 //        gameField.cells[0][0] = new Block(0, 0, BLOCK_SIZE, Color.WHITE);
 //        Thread.sleep(2000);
 //        gameField.cells[0][0].color = Color.BLUE;
