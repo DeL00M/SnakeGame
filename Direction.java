@@ -1,6 +1,20 @@
-public abstract class Direction {
-    static final int[] UP = {0, -1};
-    static final int[] DOWN = {0, 1};
-    static final int[] LEFT = {-1, 0};
-    static final int[] RIGHT = {1, 0};
+class Directions {
+    public int horizontal;
+    public int vertical;
+
+    Directions() {
+
+    }
+
+    Directions(int horizontal, int vertical) {
+        this.horizontal = horizontal;
+        this.vertical = vertical;
+    }
+}
+
+public class Direction extends  Directions {
+    static final Directions UP = new Directions(1, 0);
+    static final Directions DOWN = new Directions(0, 1);
+    static final Directions LEFT = new Directions(-1, 0);
+    static final Directions RIGHT = new Directions(1, 0);
 }

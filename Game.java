@@ -4,45 +4,40 @@ import java.awt.*;
 public class Game {
     GameWindow gameWindow;
     static GameField gameField;
+    static Color wallColor = Color.GRAY;
+    static Color snakeColor = Color.WHITE;
     final static int BLOCK_SIZE = 20;
     final static int WINDOW_WIDTH = 640;
-     static int WINDOW_HEIGHT = 480+28;
-    static int WINDOW_TOP = 0;
-    static int WINDOW_LEFT = 0;
-    static Line topLine;
-    static Line bottomLine;
-    static Line leftLine;
+    static final int WINDOW_HEIGHT = 480+28;
+    static Dimension screen = Toolkit.getDefaultToolkit ().getScreenSize ();
+    static final int WINDOW_TOP = (screen.height / 2) - (WINDOW_HEIGHT / 2);
+    static final int WINDOW_LEFT = (screen.width / 2) - (WINDOW_WIDTH / 2);
+    static Snake snake;
 
     public static void main(String[] args) throws InterruptedException {new Game().play();}
 
     private void play() throws InterruptedException {
         gameWindow = new GameWindow(WINDOW_WIDTH, WINDOW_HEIGHT, WINDOW_LEFT, WINDOW_TOP);
-        gameWindow.setLocationRelativeTo(null); //center window
         gameField = new GameField(Color.BLACK);
         gameWindow.add(gameField);
-        do {
-            gameField.repaint();
-            WINDOW_HEIGHT = gameField.getHeight();
-        } while (WINDOW_HEIGHT == 0);
-        topLine = new Line(WINDOW_TOP, 0, WINDOW_WIDTH / BLOCK_SIZE, Direction.RIGHT, Color.WHITE);
-        bottomLine = new Line(WINDOW_HEIGHT - BLOCK_SIZE, 0,
-                WINDOW_WIDTH / BLOCK_SIZE, Direction.RIGHT, Color.WHITE);
-        leftLine = new Line(WINDOW_TOP + BLOCK_SIZE, 0, (WINDOW_HEIGHT / BLOCK_SIZE) -1,
-                Direction.DOWN, Color.WHITE);
+        gameField.addShape(new Line(0, 0, WINDOW_WIDTH / BLOCK_SIZE, Direction.RIGHT, wallColor));
+        gameField.addShape(new Line(gameWindow.getHeight() - 25 - BLOCK_SIZE, 0,
+                WINDOW_WIDTH / BLOCK_SIZE, Direction.RIGHT, wallColor));
+        gameField.addShape(new Line(0 + BLOCK_SIZE, 0, (gameWindow.getHeight() - 25 / BLOCK_SIZE) -1,
+                Direction.DOWN, wallColor));
+        gameField.addShape(new Line(0 + BLOCK_SIZE, WINDOW_WIDTH - BLOCK_SIZE,
+                (gameWindow.getHeight() - 25 / BLOCK_SIZE) -1,
+                Direction.DOWN, wallColor));
 
-//        gameField.cells[0][0] = new Block(0, 0, BLOCK_SIZE, Color.WHITE);
-//        Thread.sleep(2000);
-//        gameField.cells[0][0].color = Color.BLUE;
+        gameField.addShape(snake = new Snake(BLOCK_SIZE*2, BLOCK_SIZE*2, 5,
+                Direction.RIGHT, snakeColor));
+
+//        Thread.sleep(200);
     }
 
     public static void Paint(Graphics g) {
-        topLine.draw(g);
-        bottomLine.draw(g);
-        leftLine.draw(g);
-//        for (Block[] i: gameField.cells) {
-//            for (Block j: i) {
-//                if (j != null) j.draw(g);
-//            }
-//        }
+        for (Shape shapes:gameField.getShapes()) {
+            shapes.draw(g);
+        }
     }
 }

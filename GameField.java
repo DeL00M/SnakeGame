@@ -1,14 +1,24 @@
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
 
 public class GameField extends JPanel {
+    protected ArrayList<Shape> shapes = new ArrayList<>();
 
     public GameField(Color color) {
-        setBackground(color);
+        this.setBackground(color);
+    }
+
+    public void addShape(Shape shape){
+        shapes.add(shape);
+    }
+
+    public ArrayList<Shape> getShapes() {
+        return shapes;
     }
 
     @Override
-    public void paintComponent(Graphics g) {
+    protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         Game.Paint(g);
         repaint();
