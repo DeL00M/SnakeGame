@@ -13,6 +13,10 @@ public class Shape {
         blocks.add(block);
     }
 
+    public Color getColor() {
+        return blocks.get(0).getColor();
+    }
+
     public void draw(Graphics g) {
         for (Block b:blocks) {
             b.draw(g);

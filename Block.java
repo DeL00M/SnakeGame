@@ -1,10 +1,20 @@
 import java.awt.*;
 
 public class Block {
-    public int top;
-    public int left;
-    public int size;
-    Color color;
+    protected int top;
+    protected int left;
+
+    public int getSize() {
+        return size;
+    }
+
+    protected int size;
+
+    public Color getColor() {
+        return color;
+    }
+
+    protected Color color;
 
     Block(int top, int left, int size, Color color) {
         this.top = top;

@@ -12,7 +12,9 @@ public class Game {
     static Dimension screen = Toolkit.getDefaultToolkit ().getScreenSize ();
     static final int WINDOW_TOP = (screen.height / 2) - (WINDOW_HEIGHT / 2);
     static final int WINDOW_LEFT = (screen.width / 2) - (WINDOW_WIDTH / 2);
+    static int snakeSize = 5;
     static Snake snake;
+
 
     public static void main(String[] args) throws InterruptedException {new Game().play();}
 
@@ -29,10 +31,18 @@ public class Game {
                 (gameWindow.getHeight() - 25 / BLOCK_SIZE) -1,
                 Direction.DOWN, wallColor));
 
-        gameField.addShape(snake = new Snake(BLOCK_SIZE*2, BLOCK_SIZE*2, 5,
-                Direction.RIGHT, snakeColor));
+        snake = Snake.createSnake(BLOCK_SIZE*2, BLOCK_SIZE*2, snakeSize,
+                Direction.RIGHT, snakeColor);
 
-//        Thread.sleep(200);
+        gameField.addShape(snake);
+
+        gameWindow.addKeyListener(snake.getController());
+
+        while (true) {
+            snake.move(snake.getDirection());
+            Thread.sleep(500);
+            gameField.repaint();
+        }
     }
 
     public static void Paint(Graphics g) {
