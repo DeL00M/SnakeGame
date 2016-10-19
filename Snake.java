@@ -15,14 +15,9 @@ public class Snake extends Line{
         this.direction = direction;
     }
 
-    private Snake(int top, int left, int count, Directions direction, Color color) {
+    public Snake(int top, int left, int count, Directions direction, Color color) {
         super(top, left, count, direction, color);
-        setDirection(Direction.RIGHT);
-    }
-
-
-    public static Snake createSnake(int top, int left, int count, Directions direction, Color color) {
-            return new Snake(top, left, count, direction, color);
+        setDirection(direction);
     }
 
     public KeyListener getController() {
