@@ -28,19 +28,25 @@ public class Snake extends Line{
         this.controller = controller;
     }
 
+    public Block getHead(){
+        return super.getBlocks().get(super.getBlocks().size()-1);
+    }
+
 
     protected boolean canMove () {
         return true;
     }
 
+
     public void move(Directions direction) {
         if (!canMove()) { return;}
-        Block head = super.getBlocks().get(super.getBlocks().size()-1);
+        Block head = getHead();
         super.getBlocks().remove(0);
         super.addBlock(new Block((head.getTop() + head.getSize() * direction.horizontal),
                     head.getLeft() + head.getSize() * direction.vertical, head.getSize(), getColor()));
     }
 }
+
 
 class SnakeController implements KeyListener {
     private int up;

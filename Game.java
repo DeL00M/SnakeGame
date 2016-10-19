@@ -49,8 +49,8 @@ public class Game {
         while (!gameOver) {
             snake.move(snake.getDirection());
             //snake2.move(snake2.getDirection());
-            if (gameField.blocksCrossing(snake.getBlocks().get(snake.getBlocks().size()-1))) {gameOver = true;}
-            //||gameField.blocksCrossing(snake2.getBlocks().get(snake2.getBlocks().size()-1))
+            if (gameField.blocksCrossing(snake.getHead())) {gameOver = true;}
+            //||gameField.blocksCrossing(snake2.getHead()))
             Thread.sleep(paintDelay);
             gameField.repaint();
         }
