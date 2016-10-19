@@ -17,10 +17,20 @@ public class GameField extends JPanel {
         return shapes;
     }
 
+    public boolean blocksCrossing(Block block) {
+        for (Shape s:shapes) {
+            for (Block b:s.getBlocks()) {
+                if (!(b.equals(block)) && b.getTop() == block.getTop() && b.getLeft() == block.getLeft()) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         Game.Paint(g);
-        //repaint();
     }
 }

@@ -6,14 +6,15 @@ public class Game {
     static Color wallColor = Color.GRAY;
     static Color snakeColor = Color.WHITE;
     final static int BLOCK_SIZE = 20;
-    final static int WINDOW_WIDTH = 640;
+    final static int WINDOW_WIDTH = 640+6;
     static final int WINDOW_HEIGHT = 480+28;
     static Dimension screen = Toolkit.getDefaultToolkit ().getScreenSize ();
     static final int WINDOW_TOP = (screen.height / 2) - (WINDOW_HEIGHT / 2);
     static final int WINDOW_LEFT = (screen.width / 2) - (WINDOW_WIDTH / 2);
-    static int snakeLength = 20;
+    static int snakeLength = 5;
     static Snake snake;
     static final int paintDelay = 300;
+    static boolean gameOver = false;
     //static Snake snake2;
 
     public static void main(String[] args) throws InterruptedException {new Game().play();}
@@ -25,15 +26,15 @@ public class Game {
         gameField.addShape(new Line(0, 0, WINDOW_WIDTH / BLOCK_SIZE, Direction.RIGHT, wallColor));
         gameField.addShape(new Line(gameWindow.getHeight() - 25 - BLOCK_SIZE, 0,
                 WINDOW_WIDTH / BLOCK_SIZE, Direction.RIGHT, wallColor));
-        gameField.addShape(new Line(0 + BLOCK_SIZE, 0, (gameWindow.getHeight() - 25 / BLOCK_SIZE) -1,
+        gameField.addShape(new Line(BLOCK_SIZE, 0, (gameWindow.getHeight() - 25 / BLOCK_SIZE) -1,
                 Direction.DOWN, wallColor));
-        gameField.addShape(new Line(0 + BLOCK_SIZE, WINDOW_WIDTH - BLOCK_SIZE,
+        gameField.addShape(new Line(BLOCK_SIZE, WINDOW_WIDTH - BLOCK_SIZE-6,
                 (gameWindow.getHeight() - 25 / BLOCK_SIZE) -1,
                 Direction.DOWN, wallColor));
 
         snake = new Snake(BLOCK_SIZE*2, BLOCK_SIZE*2, snakeLength, Direction.RIGHT, snakeColor);
         snake.setController(new SnakeController(snake, 38, 40, 37, 39));
-        //snake2 = Snake.createSnake(BLOCK_SIZE*4, BLOCK_SIZE*4, snakeLength, Direction.RIGHT, snakeColor);
+        //snake2 = new Snake(BLOCK_SIZE*4, BLOCK_SIZE*4, snakeLength, Direction.RIGHT, snakeColor);
         //snake2.setController(new SnakeController(snake2, 87, 83, 65, 68));
 
         gameField.addShape(snake);
@@ -45,9 +46,11 @@ public class Game {
         gameWindow.add(gameField);
         gameWindow.setVisible(true);
 
-        while (true) {
+        while (!gameOver) {
             snake.move(snake.getDirection());
             //snake2.move(snake2.getDirection());
+            if (gameField.blocksCrossing(snake.getBlocks().get(snake.getBlocks().size()-1))) {gameOver = true;}
+            //||gameField.blocksCrossing(snake2.getBlocks().get(snake2.getBlocks().size()-1))
             Thread.sleep(paintDelay);
             gameField.repaint();
         }

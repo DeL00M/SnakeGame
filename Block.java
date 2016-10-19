@@ -22,8 +22,6 @@ public class Block {
         return color;
     }
 
-
-
     Block(int top, int left, int size, Color color) {
         this.top = top;
         this.left = left;
