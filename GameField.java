@@ -3,7 +3,7 @@ import java.awt.*;
 import java.util.ArrayList;
 
 public class GameField extends JPanel {
-    protected ArrayList<Shape> shapes = new ArrayList<>();
+    private ArrayList<Shape> shapes = new ArrayList<>();
 
     public GameField(Color color) {
         this.setBackground(color);

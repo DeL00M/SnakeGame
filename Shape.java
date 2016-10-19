@@ -3,7 +3,7 @@ import java.util.ArrayList;
 
 public class Shape {
 
-    protected ArrayList<Block> blocks = new ArrayList<>();
+    private ArrayList<Block> blocks = new ArrayList<>();
 
     public ArrayList<Block> getBlocks() {
         return blocks;
@@ -11,6 +11,10 @@ public class Shape {
 
     public void addBlock(Block block) {
         blocks.add(block);
+    }
+
+    public void removeBlock(int index) {
+        blocks.remove(index);
     }
 
     public Color getColor() {

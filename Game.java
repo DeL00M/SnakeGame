@@ -12,6 +12,7 @@ public class Game {
     static Dimension screen = Toolkit.getDefaultToolkit ().getScreenSize ();
     static final int WINDOW_TOP = (screen.height / 2) - (WINDOW_HEIGHT / 2);
     static final int WINDOW_LEFT = (screen.width / 2) - (WINDOW_WIDTH / 2);
+    static int paintDelay = 500;
     static int snakeSize = 5;
     static Snake snake;
 
@@ -21,7 +22,6 @@ public class Game {
     private void play() throws InterruptedException {
         gameWindow = new GameWindow(WINDOW_WIDTH, WINDOW_HEIGHT, WINDOW_LEFT, WINDOW_TOP);
         gameField = new GameField(Color.BLACK);
-        gameWindow.add(gameField);
         gameField.addShape(new Line(0, 0, WINDOW_WIDTH / BLOCK_SIZE, Direction.RIGHT, wallColor));
         gameField.addShape(new Line(gameWindow.getHeight() - 25 - BLOCK_SIZE, 0,
                 WINDOW_WIDTH / BLOCK_SIZE, Direction.RIGHT, wallColor));
@@ -38,9 +38,12 @@ public class Game {
 
         gameWindow.addKeyListener(snake.getController());
 
+        gameWindow.add(gameField);
+        gameWindow.setVisible(true);
+
         while (true) {
             snake.move(snake.getDirection());
-            Thread.sleep(500);
+            Thread.sleep(paintDelay);
             gameField.repaint();
         }
     }
