@@ -11,7 +11,7 @@ public class Game {
     static Dimension screen = Toolkit.getDefaultToolkit ().getScreenSize ();
     static final int WINDOW_TOP = (screen.height / 2) - (WINDOW_HEIGHT / 2);
     static final int WINDOW_LEFT = (screen.width / 2) - (WINDOW_WIDTH / 2);
-    static int snakeLength = 5;
+    static int snakeLength = 20;
     static Snake snake;
     static final int paintDelay = 300;
     //static Snake snake2;

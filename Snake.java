@@ -34,12 +34,11 @@ public class Snake extends Line{
     }
 
     public void move(Directions direction) {
+        if (!canMove()) { return;}
         Block head = super.getBlocks().get(super.getBlocks().size()-1);
-        if (canMove()) {
-            super.getBlocks().remove(0);
-            super.getBlocks().add(new Block((head.top + head.size * direction.horizontal),
-                    head.left + head.size * direction.vertical, head.size, getColor()));
-        }
+        super.getBlocks().remove(0);
+        super.addBlock(new Block((head.getTop() + head.getSize() * direction.horizontal),
+                    head.getLeft() + head.getSize() * direction.vertical, head.getSize(), getColor()));
     }
 }
 
