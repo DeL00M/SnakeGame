@@ -12,7 +12,7 @@ public class Game {
     static final int WINDOW_TOP = (screen.height / 2) - (WINDOW_HEIGHT / 2);
     static final int WINDOW_LEFT = (screen.width / 2) - (WINDOW_WIDTH / 2);
     static int paintDelay = 500;
-    static int snakeLength = 5;
+    static int startLength = 5;
     static Snake snake;
 
 
@@ -30,8 +30,8 @@ public class Game {
                 (gameWindow.getHeight() - 25 / BLOCK_SIZE) -1,
                 Direction.DOWN, wallColor));
 
-        snake = Snake.createSnake(BLOCK_SIZE*2, BLOCK_SIZE*2, snakeLength,
-                Direction.DOWN, snakeColor);
+        snake = Snake.createSnake(BLOCK_SIZE*2, BLOCK_SIZE*2, startLength,
+                Direction.RIGHT, snakeColor);
 
         gameField.addShape(snake);
 
@@ -48,8 +48,6 @@ public class Game {
     }
 
     public static void Paint(Graphics g) {
-        for (Shape shapes:gameField.getShapes()) {
-            shapes.draw(g);
-        }
+        for (Shape shapes:gameField.getShapes()) {shapes.draw(g);}
     }
 }

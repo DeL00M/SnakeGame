@@ -22,8 +22,6 @@ public class Shape {
     }
 
     public void draw(Graphics g) {
-        for (Block b:blocks) {
-            b.draw(g);
-        }
+        for (Block block:blocks) {block.draw(g);}
     }
 }

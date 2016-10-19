@@ -24,7 +24,7 @@ public class Snake extends Line{
         super(top, left, count, direction, color);
         snakeCount++;
         setController(count);
-        setDirection(Direction.RIGHT);
+        setDirection(direction);
     }
 
 
