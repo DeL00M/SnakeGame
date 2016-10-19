@@ -17,15 +17,15 @@ public class GameField extends JPanel {
         return shapes;
     }
 
-    public boolean blocksCrossing(Block block) {
+    public Shape getsameBlockShape(Block block) {
         for (Shape s:shapes) {
             for (Block b:s.getBlocks()) {
                 if (!(b.equals(block)) && b.getTop() == block.getTop() && b.getLeft() == block.getLeft()) {
-                    return true;
+                    return s;
                 }
             }
         }
-        return false;
+        return null;
     }
 
     @Override

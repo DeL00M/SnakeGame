@@ -1,4 +1,5 @@
 import java.awt.*;
+import java.util.Random;
 
 public class Game {
     GameWindow gameWindow;
@@ -7,8 +8,8 @@ public class Game {
     static Color snakeColor = Color.WHITE;
     static Color foodColor = Color.GREEN;
     final static int BLOCK_SIZE = 20;
-    final static int WINDOW_WIDTH = 640+6;
-    static final int WINDOW_HEIGHT = 480+28;
+    final static int WINDOW_WIDTH = BLOCK_SIZE * 32 ;
+    static final int WINDOW_HEIGHT = BLOCK_SIZE * 24 ;
     static Dimension screen = Toolkit.getDefaultToolkit ().getScreenSize ();
     static final int WINDOW_TOP = (screen.height / 2) - (WINDOW_HEIGHT / 2);
     static final int WINDOW_LEFT = (screen.width / 2) - (WINDOW_WIDTH / 2);
@@ -21,17 +22,19 @@ public class Game {
     public static void main(String[] args) throws InterruptedException {new Game().play();}
 
     private void play() throws InterruptedException {
-        gameWindow = new GameWindow(WINDOW_WIDTH, WINDOW_HEIGHT, WINDOW_LEFT, WINDOW_TOP);
+        gameWindow = new GameWindow(WINDOW_WIDTH + 2, WINDOW_HEIGHT + 5, WINDOW_LEFT, WINDOW_TOP);
         gameField = new GameField(Color.BLACK);
-        gameWindow.add(gameField);
+
         gameField.addShape(new Line(0, 0, WINDOW_WIDTH / BLOCK_SIZE, Direction.RIGHT, wallColor));
-        gameField.addShape(new Line(gameWindow.getHeight() - 28 - BLOCK_SIZE, 0,
+
+        gameField.addShape(new Line(WINDOW_HEIGHT - BLOCK_SIZE*2, 0,
                 WINDOW_WIDTH / BLOCK_SIZE, Direction.RIGHT, wallColor));
-        gameField.addShape(new Line(BLOCK_SIZE, 0, (gameWindow.getHeight() - 25 / BLOCK_SIZE) -1,
+
+        gameField.addShape(new Line(BLOCK_SIZE, 0, (WINDOW_HEIGHT / BLOCK_SIZE) - 3,
                 Direction.DOWN, wallColor));
-        gameField.addShape(new Line(BLOCK_SIZE, WINDOW_WIDTH - BLOCK_SIZE-6,
-                (gameWindow.getHeight() - 25 / BLOCK_SIZE) -1,
-                Direction.DOWN, wallColor));
+
+        gameField.addShape(new Line(BLOCK_SIZE, WINDOW_WIDTH - BLOCK_SIZE,
+                (WINDOW_HEIGHT  / BLOCK_SIZE) - 3, Direction.DOWN, wallColor));
 
         snake = new Snake(BLOCK_SIZE*2, BLOCK_SIZE*2, snakeLength, Direction.RIGHT, snakeColor);
         snake.setController(new SnakeController(snake, 38, 40, 37, 39));
@@ -41,22 +44,54 @@ public class Game {
         gameField.addShape(snake);
         //gameField.addShape(snake2);
 
-        gameField.addShape(new Food(BLOCK_SIZE*6, BLOCK_SIZE*6, BLOCK_SIZE, foodColor));
+        gameField.addShape(getFood());
+        gameField.addShape(getFood());
 
         gameWindow.addKeyListener(snake.getController());
         //gameWindow.addKeyListener(snake2.getController());
 
         gameWindow.add(gameField);
         gameWindow.setVisible(true);
+
+        Shape sameBlockShape;
+
         while (!gameOver) {
             snake.move();
             gameField.repaint();
             Thread.sleep(paintDelay);
-            if (gameField.blocksCrossing(snake.getNextBlock())) {gameOver = !gameOver;}
+            sameBlockShape = gameField.getsameBlockShape(snake.getNextBlock());
+            if (sameBlockShape != null) {
+                if (sameBlockShape instanceof Food) {
+                    snake.eat(sameBlockShape.getBlocks().get(0));
+                    sameBlockShape.removeBlock(0);
+                    gameField.addShape(getFood());
+                    gameWindow.setTitle(Integer.toString(snake.getBlocks().size()));
+                } else {
+                gameOver = !gameOver;
+                }
+            }
         }
     }
 
+    public Food getFood() {
+        Random random = new Random();
+        int randomTop = 0;
+        int randomLeft = 0;
+        do {
+            randomTop = (random.nextInt(21)+1) * BLOCK_SIZE;
+        } while (randomTop % BLOCK_SIZE != 0 );
+
+        do {
+            randomLeft = (random.nextInt(29)+1) * BLOCK_SIZE;
+        } while (randomLeft % BLOCK_SIZE != 0);
+        if (gameField.getsameBlockShape(new Block(randomTop, randomLeft, BLOCK_SIZE, foodColor)) == null) {
+            return new Food(randomTop, randomLeft, BLOCK_SIZE, foodColor);
+        } else return getFood();
+    }
+
     public static void Paint(Graphics g) {
-        for (Shape shapes:gameField.getShapes()) {shapes.draw(g);}
+        for (Shape shapes:gameField.getShapes()) {
+            shapes.draw(g);
+        }
     }
 }

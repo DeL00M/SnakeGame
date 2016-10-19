@@ -38,9 +38,13 @@ public class Snake extends Line{
     }
 
     public void move() {
-        //Block head = getHead();
         super.getBlocks().remove(0);
         super.addBlock(getNextBlock());
+    }
+
+    public void eat(Block block) {
+        block.setColor(this.getColor());
+        super.addBlock(block);
     }
 }
 
@@ -63,10 +67,14 @@ class SnakeController implements KeyListener {
 
     @Override
     public void keyPressed(KeyEvent e) {
-        if (e.getKeyCode() == up && snake.getDirection() != Direction.DOWN) {snake.setDirection(Direction.UP); return;}
-        if (e.getKeyCode() == down && snake.getDirection() != Direction.UP) {snake.setDirection(Direction.DOWN); return;}
-        if (e.getKeyCode() == left && snake.getDirection() != Direction.RIGHT) {snake.setDirection(Direction.LEFT); return;}
-        if (e.getKeyCode() == right && snake.getDirection() != Direction.LEFT) {snake.setDirection(Direction.RIGHT); return;}
+        if (e.getKeyCode() == up && snake.getDirection() != Direction.DOWN)
+        {snake.setDirection(Direction.UP); return;}
+        if (e.getKeyCode() == down && snake.getDirection() != Direction.UP)
+        {snake.setDirection(Direction.DOWN); return;}
+        if (e.getKeyCode() == left && snake.getDirection() != Direction.RIGHT)
+        {snake.setDirection(Direction.LEFT); return;}
+        if (e.getKeyCode() == right && snake.getDirection() != Direction.LEFT)
+        {snake.setDirection(Direction.RIGHT); return;}
     }
 
     @Override
