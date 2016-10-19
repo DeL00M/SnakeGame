@@ -40,6 +40,9 @@ public class Game {
         gameWindow.add(gameField);
         gameWindow.setVisible(true);
 
+        gameWindow.add(gameField);
+        gameWindow.setVisible(true);
+
         while (true) {
             snake.move(snake.getDirection());
             Thread.sleep(paintDelay);
