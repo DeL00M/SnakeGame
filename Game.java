@@ -1,7 +1,4 @@
-import javax.swing.*;
 import java.awt.*;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 
 public class Game {
     GameWindow gameWindow;
@@ -14,7 +11,7 @@ public class Game {
     static Dimension screen = Toolkit.getDefaultToolkit ().getScreenSize ();
     static final int WINDOW_TOP = (screen.height / 2) - (WINDOW_HEIGHT / 2);
     static final int WINDOW_LEFT = (screen.width / 2) - (WINDOW_WIDTH / 2);
-    static int snakeSize = 5;
+    static int snakeLength = 5;
     static Snake snake;
 
 
@@ -33,7 +30,7 @@ public class Game {
                 (gameWindow.getHeight() - 25 / BLOCK_SIZE) -1,
                 Direction.DOWN, wallColor));
 
-        snake = Snake.createSnake(BLOCK_SIZE*2, BLOCK_SIZE*2, snakeSize, Direction.RIGHT, snakeColor);
+        snake = Snake.createSnake(BLOCK_SIZE*2, BLOCK_SIZE*2, snakeLength, Direction.RIGHT, snakeColor);
         snake.setController(new SnakeController(snake, 38, 40, 37, 39));
 
         gameField.addShape(snake);
