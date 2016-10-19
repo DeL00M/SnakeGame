@@ -13,6 +13,7 @@ public class Game {
     static final int WINDOW_LEFT = (screen.width / 2) - (WINDOW_WIDTH / 2);
     static int snakeLength = 5;
     static Snake snake;
+    static final int paintDelay = 300;
     //static Snake snake2;
 
     public static void main(String[] args) throws InterruptedException {new Game().play();}
@@ -47,7 +48,7 @@ public class Game {
         while (true) {
             snake.move(snake.getDirection());
             //snake2.move(snake2.getDirection());
-            Thread.sleep(500);
+            Thread.sleep(paintDelay);
             gameField.repaint();
         }
     }
