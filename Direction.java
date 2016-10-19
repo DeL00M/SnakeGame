@@ -12,7 +12,7 @@ class Directions {
     }
 }
 
-public class Direction extends  Directions {
+public abstract class Direction extends  Directions {
     static final Directions UP = new Directions(0, -1);
     static final Directions DOWN = new Directions(0, 1);
     static final Directions LEFT = new Directions(-1, 0);
