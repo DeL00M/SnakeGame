@@ -9,6 +9,6 @@ public class GameWindow extends JFrame {
         setLocation(top, left);
         setSize(width, height);
         setResizable(false);
-        setVisible(true);
+        //setVisible(true);
     }
 }
