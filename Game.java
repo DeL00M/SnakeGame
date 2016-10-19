@@ -1,4 +1,7 @@
+import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
 public class Game {
     GameWindow gameWindow;
@@ -11,9 +14,9 @@ public class Game {
     static Dimension screen = Toolkit.getDefaultToolkit ().getScreenSize ();
     static final int WINDOW_TOP = (screen.height / 2) - (WINDOW_HEIGHT / 2);
     static final int WINDOW_LEFT = (screen.width / 2) - (WINDOW_WIDTH / 2);
-    static int paintDelay = 500;
-    static int startLength = 5;
+    static int snakeSize = 5;
     static Snake snake;
+    static Snake snake2;
 
 
     public static void main(String[] args) throws InterruptedException {new Game().play();}
@@ -21,6 +24,7 @@ public class Game {
     private void play() throws InterruptedException {
         gameWindow = new GameWindow(WINDOW_WIDTH, WINDOW_HEIGHT, WINDOW_LEFT, WINDOW_TOP);
         gameField = new GameField(Color.BLACK);
+        gameWindow.add(gameField);
         gameField.addShape(new Line(0, 0, WINDOW_WIDTH / BLOCK_SIZE, Direction.RIGHT, wallColor));
         gameField.addShape(new Line(gameWindow.getHeight() - 25 - BLOCK_SIZE, 0,
                 WINDOW_WIDTH / BLOCK_SIZE, Direction.RIGHT, wallColor));
@@ -30,27 +34,32 @@ public class Game {
                 (gameWindow.getHeight() - 25 / BLOCK_SIZE) -1,
                 Direction.DOWN, wallColor));
 
-        snake = Snake.createSnake(BLOCK_SIZE*2, BLOCK_SIZE*2, startLength,
-                Direction.RIGHT, snakeColor);
+        snake = Snake.createSnake(BLOCK_SIZE*2, BLOCK_SIZE*2, snakeSize, Direction.RIGHT, snakeColor);
+        snake.setController(new SnakeController(snake, 38, 40, 37, 39));
 
+        snake2 = Snake.createSnake(BLOCK_SIZE*4, BLOCK_SIZE*4, snakeSize, Direction.RIGHT, snakeColor);
+        snake2.setController(new SnakeController(snake2, 87, 83, 65, 68));
+
+        gameField.addShape(snake2);
         gameField.addShape(snake);
 
         gameWindow.addKeyListener(snake.getController());
-
-        gameWindow.add(gameField);
-        gameWindow.setVisible(true);
+        gameWindow.addKeyListener(snake2.getController());
 
         gameWindow.add(gameField);
         gameWindow.setVisible(true);
 
         while (true) {
             snake.move(snake.getDirection());
-            Thread.sleep(paintDelay);
+            snake2.move(snake2.getDirection());
+            Thread.sleep(500);
             gameField.repaint();
         }
     }
 
     public static void Paint(Graphics g) {
-        for (Shape shapes:gameField.getShapes()) {shapes.draw(g);}
+        for (Shape shapes:gameField.getShapes()) {
+            shapes.draw(g);
+        }
     }
 }
