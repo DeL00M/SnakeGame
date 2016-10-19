@@ -21,6 +21,6 @@ public class GameField extends JPanel {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         Game.Paint(g);
-        repaint();
+        //repaint();
     }
 }

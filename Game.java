@@ -1,4 +1,3 @@
-import javax.swing.*;
 import java.awt.*;
 
 public class Game {
@@ -13,7 +12,7 @@ public class Game {
     static final int WINDOW_TOP = (screen.height / 2) - (WINDOW_HEIGHT / 2);
     static final int WINDOW_LEFT = (screen.width / 2) - (WINDOW_WIDTH / 2);
     static int paintDelay = 500;
-    static int snakeSize = 5;
+    static int snakeLength = 5;
     static Snake snake;
 
 
@@ -31,8 +30,8 @@ public class Game {
                 (gameWindow.getHeight() - 25 / BLOCK_SIZE) -1,
                 Direction.DOWN, wallColor));
 
-        snake = Snake.createSnake(BLOCK_SIZE*2, BLOCK_SIZE*2, snakeSize,
-                Direction.RIGHT, snakeColor);
+        snake = Snake.createSnake(BLOCK_SIZE*2, BLOCK_SIZE*2, snakeLength,
+                Direction.DOWN, snakeColor);
 
         gameField.addShape(snake);
 
