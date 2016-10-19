@@ -5,6 +5,7 @@ public class Game {
     static GameField gameField;
     static Color wallColor = Color.GRAY;
     static Color snakeColor = Color.WHITE;
+    static Color foodColor = Color.GREEN;
     final static int BLOCK_SIZE = 20;
     final static int WINDOW_WIDTH = 640+6;
     static final int WINDOW_HEIGHT = 480+28;
@@ -39,6 +40,8 @@ public class Game {
 
         gameField.addShape(snake);
         //gameField.addShape(snake2);
+
+        gameField.addShape(new Food(BLOCK_SIZE*6, BLOCK_SIZE*6, BLOCK_SIZE, foodColor));
 
         gameWindow.addKeyListener(snake.getController());
         //gameWindow.addKeyListener(snake2.getController());
