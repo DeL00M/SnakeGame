@@ -1,7 +1,7 @@
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-public class SnakeController implements KeyListener {
+class SnakeController implements KeyListener {
     private int up;
     private int down;
     private int left;
