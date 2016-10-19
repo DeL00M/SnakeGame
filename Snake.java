@@ -32,18 +32,15 @@ public class Snake extends Line{
         return super.getBlocks().get(super.getBlocks().size()-1);
     }
 
-
-    protected boolean canMove () {
-        return true;
+    public Block getNextBlock() {
+        return new Block((getHead().getTop() + getHead().getSize() * getDirection().horizontal),
+                getHead().getLeft() + getHead().getSize() * getDirection().vertical, getHead().getSize(), getColor());
     }
 
-
-    public void move(Directions direction) {
-        if (!canMove()) { return;}
-        Block head = getHead();
+    public void move() {
+        //Block head = getHead();
         super.getBlocks().remove(0);
-        super.addBlock(new Block((head.getTop() + head.getSize() * direction.horizontal),
-                    head.getLeft() + head.getSize() * direction.vertical, head.getSize(), getColor()));
+        super.addBlock(getNextBlock());
     }
 }
 

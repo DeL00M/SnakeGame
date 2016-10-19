@@ -11,7 +11,7 @@ public class Game {
     static Dimension screen = Toolkit.getDefaultToolkit ().getScreenSize ();
     static final int WINDOW_TOP = (screen.height / 2) - (WINDOW_HEIGHT / 2);
     static final int WINDOW_LEFT = (screen.width / 2) - (WINDOW_WIDTH / 2);
-    static int snakeLength = 5;
+    static int snakeLength = 8;
     static Snake snake;
     static final int paintDelay = 300;
     static boolean gameOver = false;
@@ -24,7 +24,7 @@ public class Game {
         gameField = new GameField(Color.BLACK);
         gameWindow.add(gameField);
         gameField.addShape(new Line(0, 0, WINDOW_WIDTH / BLOCK_SIZE, Direction.RIGHT, wallColor));
-        gameField.addShape(new Line(gameWindow.getHeight() - 25 - BLOCK_SIZE, 0,
+        gameField.addShape(new Line(gameWindow.getHeight() - 28 - BLOCK_SIZE, 0,
                 WINDOW_WIDTH / BLOCK_SIZE, Direction.RIGHT, wallColor));
         gameField.addShape(new Line(BLOCK_SIZE, 0, (gameWindow.getHeight() - 25 / BLOCK_SIZE) -1,
                 Direction.DOWN, wallColor));
@@ -45,14 +45,11 @@ public class Game {
 
         gameWindow.add(gameField);
         gameWindow.setVisible(true);
-
         while (!gameOver) {
-            snake.move(snake.getDirection());
-            //snake2.move(snake2.getDirection());
-            if (gameField.blocksCrossing(snake.getHead())) {gameOver = true;}
-            //||gameField.blocksCrossing(snake2.getHead()))
-            Thread.sleep(paintDelay);
+            snake.move();
             gameField.repaint();
+            Thread.sleep(paintDelay);
+            if (gameField.blocksCrossing(snake.getNextBlock())) {gameOver = !gameOver;}
         }
     }
 
