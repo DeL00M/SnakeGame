@@ -9,7 +9,7 @@ public class Game {
     static Color foodColor = Color.GREEN;
     final static int BLOCK_SIZE = 20;
     final static int COLS = 32;
-    final  static int ROWS = 24;
+    final static int ROWS = 24;
     final static int WINDOW_WIDTH = BLOCK_SIZE * COLS;
     static final int WINDOW_HEIGHT = BLOCK_SIZE * ROWS;
     static Dimension screen = Toolkit.getDefaultToolkit ().getScreenSize ();
@@ -26,15 +26,15 @@ public class Game {
     private void play() throws InterruptedException {
         gameWindow = new GameWindow(WINDOW_WIDTH + 2, WINDOW_HEIGHT + 5, WINDOW_LEFT, WINDOW_TOP);
         gameField = new GameField(Color.BLACK);
-
+        //up wall
         gameField.addShape(new Line(0, 0, BLOCK_SIZE, WINDOW_WIDTH / BLOCK_SIZE, Direction.RIGHT, wallColor));
-
+        //down wall
         gameField.addShape(new Line(0, WINDOW_HEIGHT - BLOCK_SIZE * 2,  BLOCK_SIZE,
                 WINDOW_WIDTH / BLOCK_SIZE, Direction.RIGHT, wallColor));
-
+        //left wall
         gameField.addShape(new Line(0, BLOCK_SIZE, BLOCK_SIZE, (WINDOW_HEIGHT / BLOCK_SIZE) - 3,
                 Direction.DOWN, wallColor));
-
+        //right wall
         gameField.addShape(new Line(WINDOW_WIDTH - BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE,
                 (WINDOW_HEIGHT  / BLOCK_SIZE) - 3, Direction.DOWN, wallColor));
 
