@@ -25,18 +25,18 @@ public class Game {
         gameWindow = new GameWindow(WINDOW_WIDTH + 2, WINDOW_HEIGHT + 5, WINDOW_LEFT, WINDOW_TOP);
         gameField = new GameField(Color.BLACK);
 
-        gameField.addShape(new Line(0, 0, WINDOW_WIDTH / BLOCK_SIZE, Direction.RIGHT, wallColor));
+        gameField.addShape(new Line(0, 0, BLOCK_SIZE, WINDOW_WIDTH / BLOCK_SIZE, Direction.RIGHT, wallColor));
 
-        gameField.addShape(new Line(WINDOW_HEIGHT - BLOCK_SIZE*2, 0,
+        gameField.addShape(new Line(0, WINDOW_HEIGHT - BLOCK_SIZE * 2,  BLOCK_SIZE,
                 WINDOW_WIDTH / BLOCK_SIZE, Direction.RIGHT, wallColor));
 
-        gameField.addShape(new Line(BLOCK_SIZE, 0, (WINDOW_HEIGHT / BLOCK_SIZE) - 3,
+        gameField.addShape(new Line(0, BLOCK_SIZE, BLOCK_SIZE, (WINDOW_HEIGHT / BLOCK_SIZE) - 3,
                 Direction.DOWN, wallColor));
 
-        gameField.addShape(new Line(BLOCK_SIZE, WINDOW_WIDTH - BLOCK_SIZE,
+        gameField.addShape(new Line(WINDOW_WIDTH - BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE,
                 (WINDOW_HEIGHT  / BLOCK_SIZE) - 3, Direction.DOWN, wallColor));
 
-        snake = new Snake(BLOCK_SIZE*2, BLOCK_SIZE*2, snakeLength, Direction.RIGHT, snakeColor);
+        snake = new Snake(BLOCK_SIZE*2, BLOCK_SIZE*2, BLOCK_SIZE,  snakeLength, Direction.RIGHT, snakeColor);
         snake.setController(new SnakeController(snake, 38, 40, 37, 39));
         //snake2 = new Snake(BLOCK_SIZE*4, BLOCK_SIZE*4, snakeLength, Direction.RIGHT, snakeColor);
         //snake2.setController(new SnakeController(snake2, 87, 83, 65, 68));

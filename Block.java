@@ -33,15 +33,15 @@ public class Block {
 
     }
 
-    public Block(int top, int left, int size, Color color) {
-        this.top = top;
+    public Block(int left, int top, int size, Color color) {
         this.left = left;
+        this.top = top;
         this.size = size;
         this.color = color;
     }
 
     public void draw(Graphics g) {
         g.setColor(color);
-        g.fillRect(top, left, size, size);
+        g.fillRect(left, top, size, size);
     }
 }

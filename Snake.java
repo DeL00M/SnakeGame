@@ -15,8 +15,8 @@ public class Snake extends Line{
         this.direction = direction;
     }
 
-    public Snake(int top, int left, int count, Directions direction, Color color) {
-        super(top, left, count, direction, color);
+    public Snake(int top, int left, int blockSize, int count, Directions direction, Color color) {
+        super(top, left,  blockSize, count, direction, color);
         setDirection(direction);
     }
 
@@ -33,8 +33,8 @@ public class Snake extends Line{
     }
 
     public Block getNextBlock() {
-        return new Block((getHead().getTop() + getHead().getSize() * getDirection().horizontal),
-                getHead().getLeft() + getHead().getSize() * getDirection().vertical, getHead().getSize(), getColor());
+        return new Block((getHead().getLeft() + getHead().getSize() * getDirection().horizontal),
+                getHead().getTop() + getHead().getSize() * getDirection().vertical, getHead().getSize(), getColor());
     }
 
     public void move() {

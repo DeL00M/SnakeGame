@@ -6,7 +6,7 @@ public class Food extends Shape {
         super.addBlock(block);
     }
 
-    public Food(int top, int left, int size, Color color) {
-        super.addBlock(new Block(top, left, size, color));
+    public Food(int left, int top, int size, Color color) {
+        super.addBlock(new Block(left, top, size, color));
     }
 }
