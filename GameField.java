@@ -1,6 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class GameField extends JPanel {
     private ArrayList<Shape> shapes = new ArrayList<>();
@@ -13,11 +14,15 @@ public class GameField extends JPanel {
         shapes.add(shape);
     }
 
+    public void removeShape(Object object) {
+        shapes.remove(object);
+    }
+
     public ArrayList<Shape> getShapes() {
         return shapes;
     }
 
-    public Shape getsameBlockShape(Block block) {
+    public Shape getSameBlockShape(Block block) {
         for (Shape s:shapes) {
             for (Block b:s.getBlocks()) {
                 if (!(b.equals(block)) && b.getTop() == block.getTop() && b.getLeft() == block.getLeft()) {

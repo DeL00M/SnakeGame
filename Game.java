@@ -59,11 +59,11 @@ public class Game {
             snake.move();
             gameField.repaint();
             Thread.sleep(paintDelay);
-            sameBlockShape = gameField.getsameBlockShape(snake.getNextBlock());
+            sameBlockShape = gameField.getSameBlockShape(snake.getNextBlock());
             if (sameBlockShape != null) {
                 if (sameBlockShape instanceof Food) {
                     snake.eat(sameBlockShape.getBlocks().get(0));
-                    sameBlockShape.removeBlock(0);
+                    gameField.removeShape(sameBlockShape);
                     gameField.addShape(getFood());
                     gameWindow.setTitle(Integer.toString(snake.getBlocks().size()));
                 } else {
@@ -77,16 +77,18 @@ public class Game {
         Random random = new Random();
         int randomTop = 0;
         int randomLeft = 0;
-        do {
+        //do {
             randomTop = (random.nextInt(21)+1) * BLOCK_SIZE;
-        } while (randomTop % BLOCK_SIZE != 0 );
+        //} while (randomTop % BLOCK_SIZE != 0 );
 
-        do {
+       // do {
             randomLeft = (random.nextInt(29)+1) * BLOCK_SIZE;
-        } while (randomLeft % BLOCK_SIZE != 0);
-        if (gameField.getsameBlockShape(new Block(randomTop, randomLeft, BLOCK_SIZE, foodColor)) == null) {
-            return new Food(randomTop, randomLeft, BLOCK_SIZE, foodColor);
-        } else return getFood();
+        //} while (randomLeft % BLOCK_SIZE != 0);
+
+        Block randomBlock = new Block(randomTop, randomLeft, BLOCK_SIZE, foodColor);
+        if (gameField.getSameBlockShape(randomBlock) == null) {
+            return new Food(randomBlock);
+        } else {return getFood();}
     }
 
     public static void Paint(Graphics g) {
