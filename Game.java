@@ -46,8 +46,8 @@ public class Game {
         gameField.addShape(snake);
         //gameField.addShape(snake2);
 
-        gameField.addShape(new Food(BLOCK_SIZE*15, BLOCK_SIZE*2, BLOCK_SIZE, foodColor));
-        gameField.addShape(new Food(BLOCK_SIZE*16, BLOCK_SIZE*2, BLOCK_SIZE, foodColor));
+        gameField.addShape(getFood());
+        gameField.addShape(getFood());
 
         gameWindow.addKeyListener(snake.getController());
         //gameWindow.addKeyListener(snake2.getController());
@@ -64,7 +64,7 @@ public class Game {
             sameBlockShape = gameField.getSameBlockShape(snake.getNextBlock());
             if (sameBlockShape != null) {
                 if (sameBlockShape instanceof Food) {
-                    snake.eat(sameBlockShape.getBlocks().get(0));
+                    snake.eat(((Food) sameBlockShape).getBlock());
                     gameField.removeShape(sameBlockShape);
                     gameField.addShape(getFood());
                     gameWindow.setTitle(Integer.toString(snake.getBlocks().size()));
