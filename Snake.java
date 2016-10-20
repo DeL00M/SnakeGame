@@ -33,8 +33,10 @@ public class Snake extends Line{
     }
 
     public Block getNextBlock() {
-        return new Block((getHead().getLeft() + getHead().getSize() * getDirection().horizontal),
-                getHead().getTop() + getHead().getSize() * getDirection().vertical, getHead().getSize(), getColor());
+        Block head = getHead();
+        int blockSize = head.getSize();
+        return new Block((head.getLeft() + blockSize * getDirection().horizontal),
+                head.getTop() + blockSize * getDirection().vertical, blockSize, getColor());
     }
 
     public void move() {
@@ -44,7 +46,7 @@ public class Snake extends Line{
 
     public void eat(Block block) {
         block.setColor(this.getColor());
-        super.addBlock(block);
+        super.addBlock(0, block);
     }
 }
 

@@ -8,8 +8,10 @@ public class Game {
     static Color snakeColor = Color.WHITE;
     static Color foodColor = Color.GREEN;
     final static int BLOCK_SIZE = 20;
-    final static int WINDOW_WIDTH = BLOCK_SIZE * 32 ;
-    static final int WINDOW_HEIGHT = BLOCK_SIZE * 24 ;
+    final static int COLS = 32;
+    final  static int ROWS = 24;
+    final static int WINDOW_WIDTH = BLOCK_SIZE * COLS;
+    static final int WINDOW_HEIGHT = BLOCK_SIZE * ROWS;
     static Dimension screen = Toolkit.getDefaultToolkit ().getScreenSize ();
     static final int WINDOW_TOP = (screen.height / 2) - (WINDOW_HEIGHT / 2);
     static final int WINDOW_LEFT = (screen.width / 2) - (WINDOW_WIDTH / 2);
@@ -44,8 +46,8 @@ public class Game {
         gameField.addShape(snake);
         //gameField.addShape(snake2);
 
-        gameField.addShape(getFood());
-        gameField.addShape(getFood());
+        gameField.addShape(new Food(BLOCK_SIZE*15, BLOCK_SIZE*2, BLOCK_SIZE, foodColor));
+        gameField.addShape(new Food(BLOCK_SIZE*16, BLOCK_SIZE*2, BLOCK_SIZE, foodColor));
 
         gameWindow.addKeyListener(snake.getController());
         //gameWindow.addKeyListener(snake2.getController());
@@ -58,7 +60,6 @@ public class Game {
         while (!gameOver) {
             gameField.repaint();
             snake.move();
-
             Thread.sleep(paintDelay);
             sameBlockShape = gameField.getSameBlockShape(snake.getNextBlock());
             if (sameBlockShape != null) {
@@ -76,11 +77,8 @@ public class Game {
 
     public Food getFood() {
         Random random = new Random();
-        int randomTop = 0;
-        int randomLeft = 0;
-        randomTop = (random.nextInt(22)+1) * BLOCK_SIZE;
-        randomLeft =  (random.nextInt(30)+1) * BLOCK_SIZE;
-        Block randomBlock = new Block(randomLeft, randomTop, BLOCK_SIZE, foodColor);
+        Block randomBlock = new Block((random.nextInt(COLS - 2) + 1) * BLOCK_SIZE,
+                (random.nextInt(ROWS - 2) + 1) * BLOCK_SIZE, BLOCK_SIZE, foodColor);
         if (gameField.getSameBlockShape(randomBlock) == null) {
             return new Food(randomBlock);
         } else {return getFood();}

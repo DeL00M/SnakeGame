@@ -14,6 +14,10 @@ public class Shape {
         blocks.add(block);
     }
 
+    public void addBlock(int index, Block block) {
+        blocks.add(index, block);
+    }
+
     public void removeBlock(int index) {
         blocks.remove(index);
     }
