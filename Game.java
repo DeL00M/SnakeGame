@@ -56,8 +56,9 @@ public class Game {
         Shape sameBlockShape;
 
         while (!gameOver) {
-            snake.move();
             gameField.repaint();
+            snake.move();
+
             Thread.sleep(paintDelay);
             sameBlockShape = gameField.getSameBlockShape(snake.getNextBlock());
             if (sameBlockShape != null) {
@@ -77,8 +78,8 @@ public class Game {
         Random random = new Random();
         int randomTop = 0;
         int randomLeft = 0;
-        randomTop = (random.nextInt(29)+1) * BLOCK_SIZE;
-        randomLeft =  (random.nextInt(21)+1) * BLOCK_SIZE;
+        randomTop = (random.nextInt(30)+1) * BLOCK_SIZE;
+        randomLeft =  (random.nextInt(22)+1) * BLOCK_SIZE;
         Block randomBlock = new Block(randomTop, randomLeft, BLOCK_SIZE, foodColor);
         if (gameField.getSameBlockShape(randomBlock) == null) {
             return new Food(randomBlock);
