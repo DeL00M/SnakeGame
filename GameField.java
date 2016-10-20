@@ -18,6 +18,10 @@ public class GameField extends JPanel {
         shapes.remove(object);
     }
 
+    public void clear() {
+        shapes.clear();
+    }
+
     public ArrayList<Shape> getShapes() {
         return shapes;
     }

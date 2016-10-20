@@ -1,3 +1,4 @@
+import javax.swing.*;
 import java.awt.*;
 import java.util.Random;
 
@@ -22,11 +23,9 @@ public class Game {
     static final String TITLE = "Snake";
     //static Snake snake2;
 
-    public static void main(String[] args) throws InterruptedException {new Game().play();}
+    public static void main(String[] args) throws InterruptedException {new Game().run();}
 
-    private void play() throws InterruptedException {
-        gameWindow = new GameWindow(WINDOW_WIDTH + 2, WINDOW_HEIGHT + 5, WINDOW_LEFT, WINDOW_TOP, TITLE);
-        gameField = new GameField(Color.BLACK);
+    private void play() throws InterruptedException{
         //up wall
         gameField.addShape(new Line(0, 0, BLOCK_SIZE, WINDOW_WIDTH / BLOCK_SIZE, Direction.RIGHT, wallColor));
         //down wall
@@ -38,7 +37,6 @@ public class Game {
         //right wall
         gameField.addShape(new Line(WINDOW_WIDTH - BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE,
                 (WINDOW_HEIGHT  / BLOCK_SIZE) - 3, Direction.DOWN, wallColor));
-
         snake = new Snake(BLOCK_SIZE * 2, BLOCK_SIZE * 2, BLOCK_SIZE,  snakeLength, Direction.RIGHT, snakeColor);
         snake.setController(new SnakeController(snake, 38, 40, 37, 39));
         //snake2 = new Snake(BLOCK_SIZE*4, BLOCK_SIZE*4, snakeLength, Direction.RIGHT, snakeColor);
@@ -52,10 +50,7 @@ public class Game {
 
         gameWindow.addKeyListener(snake.getController());
         //gameWindow.addKeyListener(snake2.getController());
-
-        gameWindow.add(gameField);
-        gameWindow.setVisible(true);
-
+        gameField.repaint();
         Shape sameBlockShape;
 
         while (!gameOver) {
@@ -70,11 +65,31 @@ public class Game {
                     gameField.addShape(getFood());
                     gameWindow.setTitle(TITLE +" "+Integer.toString(snake.getBlocks().size()));
                 } else {
-                gameOver = !gameOver;
+                    gameOver = !gameOver;
                 }
             }
         }
+        Object[] options = {"Да", "Нет"};
+        int n = JOptionPane.showOptionDialog(gameWindow, "Начать игру заново?", "Вы проиграли! ", JOptionPane.YES_NO_OPTION,
+                JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+        if (n == JOptionPane.YES_OPTION) {
+            gameOver = !gameOver;
+            gameField.clear();
+            gameWindow.setTitle(TITLE);
+            play();
+        } else if (n == JOptionPane.NO_OPTION) {
+            System.exit(0);
+        } else {
+            System.exit(0);
+        }
+    }
 
+    private void run() throws InterruptedException {
+        gameWindow = new GameWindow(WINDOW_WIDTH + 2, WINDOW_HEIGHT + 5, WINDOW_LEFT, WINDOW_TOP, TITLE);
+        gameField = new GameField(Color.BLACK);
+        gameWindow.add(gameField);
+        gameWindow.setVisible(true);
+        play();
     }
 
     public Food getFood() {
