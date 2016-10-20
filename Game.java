@@ -38,7 +38,7 @@ public class Game {
         gameField.addShape(new Line(WINDOW_WIDTH - BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE,
                 (WINDOW_HEIGHT  / BLOCK_SIZE) - 3, Direction.DOWN, wallColor));
 
-        snake = new Snake(BLOCK_SIZE*2, BLOCK_SIZE*2, BLOCK_SIZE,  snakeLength, Direction.RIGHT, snakeColor);
+        snake = new Snake(BLOCK_SIZE * 2, BLOCK_SIZE * 2, BLOCK_SIZE,  snakeLength, Direction.RIGHT, snakeColor);
         snake.setController(new SnakeController(snake, 38, 40, 37, 39));
         //snake2 = new Snake(BLOCK_SIZE*4, BLOCK_SIZE*4, snakeLength, Direction.RIGHT, snakeColor);
         //snake2.setController(new SnakeController(snake2, 87, 83, 65, 68));
