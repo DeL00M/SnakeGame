@@ -19,12 +19,13 @@ public class Game {
     static Snake snake;
     static final int paintDelay = 150;
     static boolean gameOver = false;
+    static final String TITLE = "Snake";
     //static Snake snake2;
 
     public static void main(String[] args) throws InterruptedException {new Game().play();}
 
     private void play() throws InterruptedException {
-        gameWindow = new GameWindow(WINDOW_WIDTH + 2, WINDOW_HEIGHT + 5, WINDOW_LEFT, WINDOW_TOP);
+        gameWindow = new GameWindow(WINDOW_WIDTH + 2, WINDOW_HEIGHT + 5, WINDOW_LEFT, WINDOW_TOP, TITLE);
         gameField = new GameField(Color.BLACK);
         //up wall
         gameField.addShape(new Line(0, 0, BLOCK_SIZE, WINDOW_WIDTH / BLOCK_SIZE, Direction.RIGHT, wallColor));
@@ -67,12 +68,13 @@ public class Game {
                     snake.eat(((Food) sameBlockShape).getBlock());
                     gameField.removeShape(sameBlockShape);
                     gameField.addShape(getFood());
-                    gameWindow.setTitle(Integer.toString(snake.getBlocks().size()));
+                    gameWindow.setTitle(TITLE +" "+Integer.toString(snake.getBlocks().size()));
                 } else {
                 gameOver = !gameOver;
                 }
             }
         }
+
     }
 
     public Food getFood() {
