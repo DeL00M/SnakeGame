@@ -15,7 +15,7 @@ public class Game {
     static final int WINDOW_LEFT = (screen.width / 2) - (WINDOW_WIDTH / 2);
     static int snakeLength = 8;
     static Snake snake;
-    static final int paintDelay = 100;
+    static final int paintDelay = 150;
     static boolean gameOver = false;
     //static Snake snake2;
 
@@ -78,9 +78,9 @@ public class Game {
         Random random = new Random();
         int randomTop = 0;
         int randomLeft = 0;
-        randomTop = (random.nextInt(30)+1) * BLOCK_SIZE;
-        randomLeft =  (random.nextInt(22)+1) * BLOCK_SIZE;
-        Block randomBlock = new Block(randomTop, randomLeft, BLOCK_SIZE, foodColor);
+        randomTop = (random.nextInt(22)+1) * BLOCK_SIZE;
+        randomLeft =  (random.nextInt(30)+1) * BLOCK_SIZE;
+        Block randomBlock = new Block(randomLeft, randomTop, BLOCK_SIZE, foodColor);
         if (gameField.getSameBlockShape(randomBlock) == null) {
             return new Food(randomBlock);
         } else {return getFood();}
