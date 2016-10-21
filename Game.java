@@ -29,11 +29,9 @@ public class Game {
     public static void main(String[] args) throws InterruptedException {new Game().run();}
 
     private void play(int playersCount) throws InterruptedException{
-
         gameOver = false;
         gameField.clear();
         players.clear();
-
         //up wall
         gameField.addShape(new Line(0, 0, BLOCK_SIZE, WINDOW_WIDTH / BLOCK_SIZE, Direction.RIGHT, wallColor));
         //down wall
@@ -45,7 +43,7 @@ public class Game {
         //right wall
         gameField.addShape(new Line(WINDOW_WIDTH - BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE,
                 (WINDOW_HEIGHT  / BLOCK_SIZE) - 3, Direction.DOWN, wallColor));
-
+        //init snakes for players
         for (int i = 0; i < playersCount; i++) {
             players.add(new Snake((BLOCK_SIZE * 2) * (i+1), (BLOCK_SIZE * 2) * (i+1),
                     BLOCK_SIZE,  snakeLength, Direction.RIGHT, snakeColor));
@@ -54,13 +52,13 @@ public class Game {
             gameField.addShape(players.get(i));
             gameWindow.addKeyListener(players.get(i).getController());
         }
-
+        //add some food on field
         gameField.addShape(getFood());
         gameField.addShape(getFood());
 
         gameField.repaint();
         Shape sameBlockShape;
-
+        //make move for all snakes
         while (!gameOver) {
             gameField.repaint();
             for (Snake snake:players) {
@@ -100,8 +98,8 @@ public class Game {
 
     public void restartGameDialog() throws InterruptedException {
         Object[] options = {"Да", "Нет"};
-        int n = JOptionPane.showOptionDialog(gameWindow, "Начать игру заново?", "Вы проиграли! ", JOptionPane.YES_NO_OPTION,
-                JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+        int n = JOptionPane.showOptionDialog(gameWindow, "Начать игру заново?", "Вы проиграли! ",
+                JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
         if (n == JOptionPane.YES_OPTION) {
             numberOfPlayers = getNumberOfPlayersDialog();
             play(numberOfPlayers);
@@ -114,8 +112,8 @@ public class Game {
 
     public int getNumberOfPlayersDialog() {
         Object[] options = {"Один игрок", "Два игрока"};
-        int n = JOptionPane.showOptionDialog(gameWindow, "Выберите количество игроков", "Змейка", JOptionPane.YES_NO_OPTION,
-                JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+        int n = JOptionPane.showOptionDialog(gameWindow, "Выберите количество игроков", "",
+                JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
         if (n == JOptionPane.YES_OPTION) {
             return 1;
         } else if (n == JOptionPane.NO_OPTION) {
