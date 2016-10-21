@@ -1,5 +1,6 @@
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.Random;
 
 public class Game {
@@ -17,15 +18,16 @@ public class Game {
     static final int WINDOW_TOP = (screen.height / 2) - (WINDOW_HEIGHT / 2);
     static final int WINDOW_LEFT = (screen.width / 2) - (WINDOW_WIDTH / 2);
     static int snakeLength = 8;
-    static Snake snake;
-    static final int paintDelay = 150;
+    static ArrayList<Snake> players = new ArrayList<>();
+    static ArrayList<SnakeController> controllers = new ArrayList<>();
+    static final int paintDelay = 300;
     static boolean gameOver = false;
     static final String TITLE = "Snake";
-    //static Snake snake2;
+
 
     public static void main(String[] args) throws InterruptedException {new Game().run();}
 
-    private void play() throws InterruptedException{
+    private void play(int playersCount) throws InterruptedException{
         //up wall
         gameField.addShape(new Line(0, 0, BLOCK_SIZE, WINDOW_WIDTH / BLOCK_SIZE, Direction.RIGHT, wallColor));
         //down wall
@@ -37,35 +39,40 @@ public class Game {
         //right wall
         gameField.addShape(new Line(WINDOW_WIDTH - BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE,
                 (WINDOW_HEIGHT  / BLOCK_SIZE) - 3, Direction.DOWN, wallColor));
-        snake = new Snake(BLOCK_SIZE * 2, BLOCK_SIZE * 2, BLOCK_SIZE,  snakeLength, Direction.RIGHT, snakeColor);
-        snake.setController(new SnakeController(snake, 38, 40, 37, 39));
-        //snake2 = new Snake(BLOCK_SIZE*4, BLOCK_SIZE*4, snakeLength, Direction.RIGHT, snakeColor);
-        //snake2.setController(new SnakeController(snake2, 87, 83, 65, 68));
 
-        gameField.addShape(snake);
-        //gameField.addShape(snake2);
+        for (int i = 0; i < playersCount; i++) {
+            players.add(new Snake((BLOCK_SIZE * 2) * (i+1), (BLOCK_SIZE * 2) * (i+1),
+                    BLOCK_SIZE,  snakeLength, Direction.RIGHT, snakeColor));
+            controllers.get(i).setSnake(players.get(i));
+            players.get(i).setController(controllers.get(i));
+            gameField.addShape(players.get(i));
+            gameWindow.addKeyListener(players.get(i).getController());
+        }
 
         gameField.addShape(getFood());
         gameField.addShape(getFood());
 
-        gameWindow.addKeyListener(snake.getController());
-        //gameWindow.addKeyListener(snake2.getController());
         gameField.repaint();
         Shape sameBlockShape;
 
         while (!gameOver) {
             gameField.repaint();
-            snake.move();
+            for (Snake snake:players) {
+                snake.move();
+            }
+
             Thread.sleep(paintDelay);
-            sameBlockShape = gameField.getSameBlockShape(snake.getNextBlock());
-            if (sameBlockShape != null) {
-                if (sameBlockShape instanceof Food) {
-                    snake.eat(((Food) sameBlockShape).getBlock());
-                    gameField.removeShape(sameBlockShape);
-                    gameField.addShape(getFood());
-                    gameWindow.setTitle(TITLE +" "+Integer.toString(snake.getBlocks().size()));
-                } else {
-                    gameOver = !gameOver;
+            for (Snake snake:players) {
+                sameBlockShape = gameField.getSameBlockShape(snake.getNextBlock());
+                if (sameBlockShape != null) {
+                    if (sameBlockShape instanceof Food) {
+                        snake.eat(((Food) sameBlockShape).getBlock());
+                        gameField.removeShape(sameBlockShape);
+                        gameField.addShape(getFood());
+                        //gameWindow.setTitle(TITLE +" "+Integer.toString(snake.getBlocks().size()));
+                    } else {
+                        gameOver = !gameOver;
+                    }
                 }
             }
         }
@@ -76,7 +83,8 @@ public class Game {
             gameOver = !gameOver;
             gameField.clear();
             gameWindow.setTitle(TITLE);
-            play();
+            players.clear();
+            play(2);
         } else if (n == JOptionPane.NO_OPTION) {
             System.exit(0);
         } else {
@@ -89,7 +97,9 @@ public class Game {
         gameField = new GameField(Color.BLACK);
         gameWindow.add(gameField);
         gameWindow.setVisible(true);
-        play();
+        controllers.add(new SnakeController(38, 40, 37, 39));
+        controllers.add(new SnakeController(87, 83, 65, 68));
+        play(2);
     }
 
     public Food getFood() {

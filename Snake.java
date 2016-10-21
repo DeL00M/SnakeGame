@@ -1,6 +1,7 @@
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.ArrayList;
 
 public class Snake extends Line{
 
@@ -56,9 +57,13 @@ class SnakeController implements KeyListener {
     private int down;
     private int left;
     private int right;
-    Snake snake;
-    public SnakeController(Snake snake, int up, int down, int left, int right) {
+    private Snake snake;
+
+    public void setSnake(Snake snake) {
         this.snake = snake;
+    }
+
+    public SnakeController(int up, int down, int left, int right) {
         this.up = up;
         this.down = down;
         this.left = left;
