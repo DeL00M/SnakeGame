@@ -94,6 +94,7 @@ public class Game {
         controllers.add(new SnakeController(38, 40, 37, 39));
         controllers.add(new SnakeController(87, 83, 65, 68));
         numberOfPlayers = getNumberOfPlayersDialog();
+        if (numberOfPlayers <= 0) System.exit(0);
         play(numberOfPlayers);
     }
 
@@ -120,7 +121,7 @@ public class Game {
         } else if (n == JOptionPane.NO_OPTION) {
             return  2;
         } else {
-            return  1;
+            return  0;
         }
     }
 
