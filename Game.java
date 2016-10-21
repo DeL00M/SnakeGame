@@ -20,14 +20,20 @@ public class Game {
     static int snakeLength = 8;
     static ArrayList<Snake> players = new ArrayList<>();
     static ArrayList<SnakeController> controllers = new ArrayList<>();
+    static int numberOfPlayers = 1;
     static final int paintDelay = 300;
-    static boolean gameOver = false;
+    static boolean gameOver;
     static final String TITLE = "Snake";
 
 
     public static void main(String[] args) throws InterruptedException {new Game().run();}
 
     private void play(int playersCount) throws InterruptedException{
+
+        gameOver = false;
+        gameField.clear();
+        players.clear();
+
         //up wall
         gameField.addShape(new Line(0, 0, BLOCK_SIZE, WINDOW_WIDTH / BLOCK_SIZE, Direction.RIGHT, wallColor));
         //down wall
@@ -76,15 +82,28 @@ public class Game {
                 }
             }
         }
+        restartGameDialog();
+    }
+
+    private void run() throws InterruptedException {
+        gameWindow = new GameWindow(WINDOW_WIDTH + 2, WINDOW_HEIGHT + 5, WINDOW_LEFT, WINDOW_TOP, TITLE);
+        gameField = new GameField(Color.BLACK);
+        gameWindow.add(gameField);
+        gameWindow.setTitle(TITLE);
+        gameWindow.setVisible(true);
+        controllers.add(new SnakeController(38, 40, 37, 39));
+        controllers.add(new SnakeController(87, 83, 65, 68));
+        numberOfPlayers = getNumberOfPlayersDialog();
+        play(numberOfPlayers);
+    }
+
+    public void restartGameDialog() throws InterruptedException {
         Object[] options = {"Да", "Нет"};
         int n = JOptionPane.showOptionDialog(gameWindow, "Начать игру заново?", "Вы проиграли! ", JOptionPane.YES_NO_OPTION,
                 JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
         if (n == JOptionPane.YES_OPTION) {
-            gameOver = !gameOver;
-            gameField.clear();
-            gameWindow.setTitle(TITLE);
-            players.clear();
-            play(2);
+            numberOfPlayers = getNumberOfPlayersDialog();
+            play(numberOfPlayers);
         } else if (n == JOptionPane.NO_OPTION) {
             System.exit(0);
         } else {
@@ -92,14 +111,17 @@ public class Game {
         }
     }
 
-    private void run() throws InterruptedException {
-        gameWindow = new GameWindow(WINDOW_WIDTH + 2, WINDOW_HEIGHT + 5, WINDOW_LEFT, WINDOW_TOP, TITLE);
-        gameField = new GameField(Color.BLACK);
-        gameWindow.add(gameField);
-        gameWindow.setVisible(true);
-        controllers.add(new SnakeController(38, 40, 37, 39));
-        controllers.add(new SnakeController(87, 83, 65, 68));
-        play(2);
+    public int getNumberOfPlayersDialog() {
+        Object[] options = {"Один игрок", "Два игрока"};
+        int n = JOptionPane.showOptionDialog(gameWindow, "Выберите количество игроков", "Змейка", JOptionPane.YES_NO_OPTION,
+                JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+        if (n == JOptionPane.YES_OPTION) {
+            return 1;
+        } else if (n == JOptionPane.NO_OPTION) {
+            return  2;
+        } else {
+            return  1;
+        }
     }
 
     public Food getFood() {
