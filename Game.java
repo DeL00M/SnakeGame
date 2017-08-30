@@ -20,7 +20,7 @@ public class Game {
     static int snakeLength = 8;
     static ArrayList<Snake> players = new ArrayList<>();
     static ArrayList<SnakeController> controllers = new ArrayList<>();
-    static int numberOfPlayers = 1;
+    static int playersCount = 1;
     static final int paintDelay = 300;
     static boolean gameOver;
     static final String TITLE = "Snake";
@@ -91,9 +91,9 @@ public class Game {
         gameWindow.setVisible(true);
         controllers.add(new SnakeController(38, 40, 37, 39));
         controllers.add(new SnakeController(87, 83, 65, 68));
-        numberOfPlayers = getNumberOfPlayersDialog();
-        if (numberOfPlayers <= 0) System.exit(0);
-        play(numberOfPlayers);
+        playersCount = getNumberOfPlayersDialog();
+        if (playersCount <= 0) System.exit(0);
+        play(playersCount);
     }
 
     public void restartGameDialog() throws InterruptedException {
@@ -101,8 +101,8 @@ public class Game {
         int n = JOptionPane.showOptionDialog(gameWindow, "Начать игру заново?", "Вы проиграли! ",
                 JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
         if (n == JOptionPane.YES_OPTION) {
-            numberOfPlayers = getNumberOfPlayersDialog();
-            play(numberOfPlayers);
+            playersCount = getNumberOfPlayersDialog();
+            play(playersCount);
         } else if (n == JOptionPane.NO_OPTION) {
             System.exit(0);
         } else {
